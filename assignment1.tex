@@ -1,0 +1,253 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+ 
+\addbibresource{mybib.bib}
+
+\title{CS681 Assignment 1}
+\author{Prannay Khosla, 150511}
+\date{January 2017}
+
+\begin{document}
+
+\maketitle
+References are Keith Conrad's expository paper on finite fields \cite{conrad} and Ian Stewart's work on Introductory Galois Theory \cite{stewart}. Articles from wikipedia were refered to for Fast Integer Arithmetic \cite{arithmetic} and for information about Gauss Lemma \cite{gauss}. Proof of Gauss Lemma has not been covered and is considered granted.
+\section{Characteristic of a Field / Ring}
+The characteristic of a field $\mathbb{F}$ or a ring $R$ is the smallest number of times $m$ the multiplicative identity $(1)$ has be added to itself to get the additive identity 0.
+\begin{center}
+    1 + 1 + 1 ..... m times = 0
+\end{center}
+\\
+Then $m$ is called the characteristic of $R$ or $\mathbb{F}$.
+\subsection{Possibilities of m}
+For $R$, $m \neq 1$, since $1 \neq 0$ in any $R$.
+\\ In any field $\mathbb{F}$, $m \in Prime$. This is due to the fact every $\mathbb{F}$ is an $integral$ domain. 
+\\ which means $ ab = 0 \implies a = 0$ or $b = 0$.
+\\ Let the characteristic be $m$.
+\\ $m1 = 0$
+\\ Consider, $ m \not \in Prime$
+\\ $\implies m = cd$ where $m,c,d \in \mathbb{F}$
+\\ $\implies (c1)(d1) = 0$
+\\ $\implies c1 = 0$ or $d1 = 0$
+\\ This is a contradiction since, $c<m$ and $d<m$, hence $m$ is not the smallest number of times $1$ must be added to itself to get $0$.
+\\ Therefore, for a Field $\mathbb{F}$, $m \in Prime$
+
+\section{Finite field $k$ and it's extensions}
+Considering the operations of $+$ and $*$ in $k$, we see it is just natural form of these operations $mod$ $p$.
+\\ Therefore we can see the natural laws of $+$ and $*$ will hold for these elements since they hold in $\mathbb{Z}$. 
+\\ Therefore we trivially see that $k$ is a ring. Now, for $k$ to be a Field, we need the existence of inverse for every element.
+\\ $\forall t \in \mathbb{Z}_p$ , $gcd(t,p) = 1$
+\\By $Bezout's$ $identity$:
+\\ $u_1t + u_2p = 1$
+\\ $u_1t = 1(mod$ $p)$
+\\ $\therefore \forall t \in \mathbb{Z}_p, \exists u_1$ , $u_1t = 1$ in $k$
+\\ $\therefore k$ is a Field ($\mathbb{F}_p$).
+\subsection{Construction of Field of order p^2}
+Consider the Ring $k[x]$
+\\ Consider ideal $I$ in this ring
+\\ \textbb{$Claim$:$I$ is a principal Ideal}
+\\ \textbb{$Proof$:} Consider $g$ to be the smallest degree polynomial in $I$
+\\ Consider $f \in I$ but $f \not \in <g>$
+\\ $\Rightarrow f = qg+ r$, $degr < degg$
+\\ $\Rightarrow f-qg \in I \implies r \in I$
+\\ Contradiction. Hence $I$ is Principal ideal.
+\\ \textbb{Claim:} There exists an irreducible monic of degree $2$
+\\ \textbb{Proof:} Consider otherwise, then the number of reducible polynomials over field $\mathbb{F}_p$ is $p^2$ upto multiplication with element of a ring, while the total number of degree $2$ polynomials is $p^3$. Therefore, there must exist one irreducible polynomial of degree $2$.
+\\ Consider $\pi(x)$ is irreducible monic with degree $2$.
+\\ Now we analyse the Ideals of this ring
+\\ Every Ideal in $\mathbb{F}[x]$ is principal.
+\\ Assume $I$ is not irreducible.
+\\ $\Leftrightarrow I = <f>, f \in \mathbb{F}[x]$ and $\exists g,h \in \mathbb{F}[x], f = gh$
+\\ $\Leftrightarrow I$ is contained in $<g>$
+\\ $\implies I $ is not maximal if and only if $f \not \in$ irreducible. 
+\\ Consider $R = \mathbb{F}/<\pi(x)>$
+\\ $R$ is a Field, since $<\pi(x)>$ is a prime ideal, $ab \in <\pi(x)>(=I) \to a \in I$ or $b \in I$
+\\ which means $ab = 0 \in R \to a = 0$ or $b = 0$.
+\\ $R$ is integral domain.
+\\ if $\forall a \in R/{0} , \not \exists b, ab = 1_R$
+\\ then consider ideal $<I,a>$
+\\ since $I$ is maximal, $\exists r \in I, x \in \mathbb{F}[x]$, $r + ax = 1 \in \mathbb{F}[x]$
+\\ $\Rightarrow ax = 1_R$, Contradiction. 
+\\ $\Rightarrow \forall a \in R/{0} , \not \exists b, ab = 1_R$
+\\ $\mathbb{F}[x]/<\pi(x)>$ is a  a field $F_1$. 
+\\ $a(x) \in F_1$ is of form $a_1x + a_2, a_i \in \mathbb{F}$
+\\ $\Rightarrow |F| = |\mathbb{F}|^2 = p^2$
+\subsection{Finite field extensions}
+All extensions of the finite field are algebraic extensions. By extending the extensions further, we build a partially ordered set which is increasing. Hence an increasing chain in a partially ordered has a maximal element by Zorn's Lemma and hence the union of all such extensions gives us a field $L$ which is algebraically closed. \\
+\section{$F^*$ is a cyclic group under $*$}
+$G$ be finite abelian group under $*$
+\\ $G = \{g_1,g_2,g_3 .. g_n\}$
+\\ Due to closure, $\forall g \in G, g*G = G = \{h_1,h_2,h_3 ....\} = \{g*g_1,g*g_2,g*g_3....\}$
+\\ $\Pi h_i = \Pi g*g_i = g^n \Pi g_i$
+\\ Since G is finite, $h_i$ are a permutation of $g_i$.
+\\ $\Rightarrow \Pi h_i \ \Pi g_i = g^n \Pi g_i \Rightarrow g^{|G|} = 1$
+\\ $\Rightarrow \forall g \in G \Rightarrow g^n = 1$ if $ |G| = n$ 
+\\ \textbb{Claim}: $\mathbb{F}[x]$ is integral domain $\implies X^n - 1$ has at most $n$ roots.
+\\ \textbb{Proof:}
+\\ We can prove by induction.  A linear polynomial has maximum $n$ roots. Now any polynomial of higher degree is either irreducible where this is trivially held. Or it is a product of two smaller polynomials. 
+$f = gh$, where $deg(f) > deg(g), deg(h)$. Hence, by induction we have that if a polynomial has maximum number of roots equals to it's degree for $g$ and $h$, the number of roots of $f$ is the sum of number of roots of $g$ and $h$. Moreover, the degree of $f$ = $deg(g) + deg(h)$. Therefore, this holds by induction. 
+\\ A corollary of this result is that $X^n - 1$ has maximum $n$ roots over the Ring. 
+\\
+\\Consider group $F^*$
+\\$h^{p-1} = 1,h  \in F^* \implies order(h) | |F^*|$
+\\We may observe that if $order(a) = {p_1}^k$, $order(b) = {p_2}^m$, $order(ab) = {p_1}^k{p_2}^m$
+\\
+\\Consider $n = |F^*|$
+\\$\exists a \in F^*, a^{\frac{n}{p}} \neq 1$, since otherwise, $x^{\frac{n}{p}} - 1$ has $n > \frac{n}{p}$ roots, which is a contradiction. 
+\\$n = \Pi p_i^{r_i}$
+\\ $x = a^{\frac{n}{p_1^{r_1}}} $
+\\ $x^{p_1^{r_1}} = a^n = 1$
+\\ also $x^{p_1^{r_1}-1} = a^{\frac{n}{p}} \neq 1$
+$\Rightarrow |x_1| = p_1^{r_1}$
+$\Rightarrow \exists t \in F^*, order(t = \Pi x_i) = \Pi p_i^{r_i} = n$
+The group generated by given $t$ is of size $n = p-1$ and is therefore the group $F^*$
+\\ $\Rightarrow F^*$ is cyclic since it can be generated by a single element.
+\subsection{Number of generators of $F^*$}
+All those elements which can be represented as $f \in F^*, f = t^m, m $ does not divide $|F^*|$ have order = $|F^*|$
+\\ $\Rightarrow $ number of generators is $\phi(|F^*|)$ where $\phi$ is Euler Totient Function.
+\section{Time complexity for repeated squaring}
+By using an algorithm which calculates $x^n = (x^{\frac{n}{2}})^2(x^{n(mod2)})$ where division is integer division
+\\ $O(logn)$ steps are taken, each step involving constant number of multiplications in $k$ which is maximum 2. \\
+Since $k$ is a finite field, then let the characteristic of the finite field be $p$. \\
+\textbf{Claim:} Every finite field can be represented as a vector space over some finite field of prime order. \\
+\textbf{Proof:} We know that the size of a finite field is the power of a prime. Now we know that $Z$ is a ring. Now let the characteristic of the field be $p$. 
+\\ 
+Then, the field if homomorphic to $\mathbb{Z}/p\mathbb{Z}$.\\
+Hence we get an embedded $\mathbb{Z}_p \rightarrow F$. By choosing a basic $\{e_1,e_2 .. e_l\}$ where $l = log_p(|k|)$ where $p$ is characteristic of the field $k$.
+\\ \\
+Now consider the basis $e_i$ to be $x^{i-1}$. Therefore we have polynomials of $deg(k-1)$. Therefore we represent the elements in $k$ as polynomials. The coefficients of the polynomials are mapped to $\mathbb{Z}_p$. \\
+Therefore now every multiplication computation in $F$ is polynomial multiplication and hence by Strassen Schonage conjecture can be done in $\Omega(l*log(l))$ operations over Field $Z_p$. The computation in $\mathbb{Z}_p$ can be done by integer arithmetic of $log(p)$ bit numbers. \\
+Further this arithmetic takes a maximum of $\Omega(log(p)*loglog(p))$ bit operations by the same conjecture. Therefore, we can do this entire computation in $O(logn*l*log(l)*log(p)*loglog(p))$ bit operations.  \\
+$\Rightarrow \widetilde{O}(log(n)*log(p)*log(l))$ time where $l = log(k)/log(p)$.
+\section{Repeated squaring in $R[x]/<n,X^r-1>$}
+It is trivial to see that we need $O(log(n))$ steps of repeated squaring and multiplication to calculate $(X+1)^n$ of the polynomial $(X+1)$ \\
+Now this is over the ring $\mathbb{Z}_n[x]$ modulo $X^r-1$ \\
+Now every polynomial multiplication is of maximum degree $2(r-1)$ followed by $r$ unary operations and further $r$ addition operations over the Ring for the modulo conversion. \\
+By Strassen and Schonhagen conjecture the best time complexity of this operation is $\Omega(r*log(r))$ in Ring operations but the available algorithms are somewhere between $O(rlog(r)loglog(r))$. \\
+Now we need to compute the multiplication and addition operation in the ring $\mathbb{Z}_n$. Consider prime $p$ and choose $p,k$ such that $p^k \geq n$. \\
+Now every element of $\mathbb{Z}_n$ can be represented as a polynomial of degree $k-1$ with element from field $\mathbb{F}_p$. Now addition in these polynomials would be in $O(k*log(p)) = O(log(p^k)) = O(log(n))$. Multiplication of polynomials would be in best $\Omega(klog(k))$ $F_p$ operations which in turn takes best $\Omega(log(p)*loglog(p))$. Now this in turn means that we can take best time $O(k*log(p)*log(k)*loglog(p)) = O(log(n)*log(k)*loglog(p))$. Optimizing it gives us that $p = O(2^{(logn)^{\frac{1}{2}}})$ and the time taken is $O(logn*(loglog(n))^2)$ which is nearly $\widetilde{O}(log(n))$. Hence we can perform this computation in $\widetilde{O}((logn)^2)$. 
+Hence for the entire repeated squaring computation, best time is $O(log^2n*loglog^2n*r*logr) = \widetilde{O}(r*log^2n)$.
+\section{Roots of unity for $\mathbb{F}_p$}
+$\forall x \in \mathbb{F}_p, x^p = x$
+Number of roots of $X^n - 1 \Leftrightarrow X^{n(mod(p-1))}$ 
+If $m = n(mod(p-1))$ and $m | p-1$
+\\ then there are $gcd(m,p-1)$ because that is the number of elements that can be represented as $g^{\frac{kn}{gcd(m,p-1)}}$ where $k < gcd(m,p-1)$.
+\section{Cyclotomy}
+
+\subsection{Cyclotomy over $\mathbb{Q}$}
+Consider a polynomial $f$. \\
+Every polynomial $f$ is a product of irreducible polynomials. \\
+This is proved trivially by induction over $deg(f)$. \\
+Let $f = gh$, then $deg(g), deg(h) < deg(f)$. \\
+$g,h$ are product of irreducible polynomials. Hence proved. 
+\\ \\
+We define minimum polynomial of $\alpha$ over $K$ as the smallest degree polynomial over $K$ such that $m(\alpha) = 0$. \\ \\
+We can see that for every field $K$ there exists an extension $K(\alpha)$ such that $m$ is minimum polynomial of $\alpha$. \\
+Consider Ideal $I = (m)$.
+\\ $I$ is prime maximal ideal over $K[t]$. \\
+$S = K[t]/I$ is a field. And choose $\alpha = I + t$, then S = $K(\alpha)$. \\
+Therefore since $m \in I$, then $m(\alpha) = 0$. \\
+Therefore we can extend a field such that $\exists$ for any $\alpha$ a irreducible polynomial $m$ in $K[t]$ over $K$ such that $m$ is minimum polynomial for $\alpha$.  \\ \\
+\textbf{\textit{Claim}: For any polynomial $f$ over $K$, there exists a splitting field L over which $f$ splits. } \\
+\textbf{Proof:} We do this by recursion over the polynomials. \\
+Consider $f = gh$, where f,g,h are a product of irreducibles. If $f$ is linear, it has a root lying in K, and we are done. Otherwise consider $g,h$. Either $g,h$ or both can be expressed as a product of irreducibles with roots in $L':K$. We apply this recursively and extend the field whenever we encounter an irreducible. \\
+When $f$ is irreducible. Now, we can extend $L(\alpha):L_1$ such that $f(\alpha)=0$ and $f$ is the minimum polynomial of $\alpha$. Therefore, by induction, for a polynomial of finite degree we have  \\
+Extending this field $K$ recursively we get that there exists an extension $L:K$ over which $f$ splits. \\ \\
+\textbf{Claim:} The polynomial $X^n - 1$ is seperable. \\
+\textbf{Proof:} Using the notion of diffrentiation of polynomials over a field in terms of indeterminates gives us that if $Df$ and $f$ share no roots, they have no repeated roots. \\
+Consider $f = X^n - 1$, roots, $w_i^n = 1$ \\
+$Df = nX^{n-1} \neq 0$ when  $w_i^n = 1$ \\
+Hence proved. 
+\\ \\
+Therefore, the polynomial factorises as $X^n - 1 = k\Pi(x-w_i)$ where $w_i \in \mathbb{C}:\mathbb{Q}$ and $w_i$ are distinct. \\ 
+And $(w_i)^n = 1 \Rightarrow X^n - 1 = k \Pi_{d|n}\Pi(x-w_{d_i})$ where $o(w_{d_i}) = d$.
+We can denote $\Pi(x-w_{d_i})$ where $o(w_{d_i}) = d$ as $\Phi_d(x)$. \\ \\
+\textbf{Claim:} k = 1 in the above expression. \\
+\textbf{Proof:} This is from Gauss lemma. Since on the LHS the coefficients of polynomial are integers, we have that they are integers on the right side too. Since the polynomial is monic on the left side, k must equal 1. \\ \\
+\textbf{Claim:} $\{f(z)\}^p = f(z^p)$ over $\mathbb{F}_p$. \\
+\textbf{Proof:} This is true for constant polynomials. For larger polynomials, we can use the binomial expansion and see that $^pC_r = 0 mod (p)$. \\ \\
+\textbf{Claim:} $\Phi_d(x)$ is irreducible over field $K$ or rather $\mathbb{Q}$ in this case. \\
+\textbf{Proof:} Consider polynomial $X^d - 1 = 0$ and a root $r$ of it with order $d$.  \\
+We know that $x^d - 1 = g(x)f(x)h(x)$ where $g(x)f(x) = \Phi(x)$ and $f(x)$ is irreducible and the minimal polynomial of $r$. By Gauss Lemma all of $g,f,h$ have integer coefficients. \\ 
+Consider $p \not | d$, then $r^p$ is also a primitive root of unity of order $d$. \\
+$\Phi_d(r^p) = 0$. \\
+Consider that $f(r^p) \neq 0$, then $g(r^p) = 0$ since $\mathbb{Q}[x]$ is an integral domain. \\
+Now, since $f$ is the minimal polynomial, $g(x^p) = f(x)l(x)$. \\
+Now consider all these polynomials modulo $\mathbb{F}_p$. \\
+$\Rightarrow g(x^p) = \{g(x)\}^p = f(x)l(x)$ \\
+$\Rightarrow f(x) | g(x) \Rightarrow \{f(x)\}^2 | x^d - 1$ \\
+Now this is a contradiction. Therefore, $\Phi_d(r^p)=0 \Rightarrow f(r^p) = 0$. \\
+Therefore, if we do this for all $p \not | d$ and all numbers generated by them which is $\forall n$ such that $(n,d) = 1$, we get that the roots of $\Phi_d(x)$ are identical to those of $f(x)$. Hence $g(x) = 1$ and $\Phi_d(x)$ is irreducible. \\
+
+$X^n - 1 = \Pi_{d|n}\Phi_d(x)$ where $\Phi_d$ are irreducible polynomials called the $dth$ cyclotomic polynomials. 
+
+\subsection{$X \in R_1 = R[x]/(\phi_n(X)), \Sigma X^{ij} $}
+$X^n - 1 = \Pi_{d|n} \Phi_d(x)$
+\\ $X^n - 1 = 0_{R_1}$
+\\ $X^n = 1_{R_1}$
+\\ Consider $ \not \exists x \in R_1 $, $order(x) = n$
+\\ Consider ring $R_1$
+\\ Consider ideal $I$ in this ring
+\\ \textbb{$Claim$:$I$ is a principal Ideal}
+\\ \textbb{$Proof$:} Consider $g$ to be the smallest degree polynomial in $I$
+\\ Consider $f \in I$ but $f \not \in <g>$
+\\ $\implies f = qg+ r$, $degr < degg$
+\\ $\implies f-qg \in I \implies r \in I$
+\\ Contradiction. Hence $I$ is Principal ideal.
+\\ $\Rightarrow$ Every Ideal in this ring is Principal.
+\\ Assume $I$ is not irreducible.
+\\ $\Leftrightarrow I = <f>, f \in \mathbb{F}[x]$ and $\exists g,h \in \mathbb{F}[x], f = gh$
+\\ $\Leftrightarrow I$ is contained in $<g>$
+\\ $\Rightarrow I $ is maximal if and only if $f \not \in$ irreducible.
+\\ Now we know $\Phi_d(x)$ is irreducible.
+\\ \textbb{Claim:} $R_1$ is Integral domain.
+\\ \textbb{Proof:} Every maximal ideal is a Prime Ideal.
+\\ $ab = 0_{R_1} \Rightarrow ab \in I_{R[x]}$ where $I_{R[x]} = (\Phi_n(x))$
+\\ since $I$ is prime , $ab = \in I \Rightarrow a \in I$ or $b \in I$
+\\ therefore $a = 0_{R_1}$ or $b = 0_{R_1}$
+\\ $\Rightarrow R_1 $ is an Integral domain. 
+\\ Now consider $\Sigma X^{ij} = d_{R_1}$
+\\ $d*(X^j-1) = (X^n)^j - 1$
+\\ $X^n = 1_{R_1} \Rightarrow X^{nj} = 1$
+\\ $\Rightarrow d*(X^j - 1) = 0$
+\\if j is not a multiple of n, then $X^j \neq 1$
+\\$d = 0_{R_1}$
+\\otherwise if j is a multiple of n, $X^{ij}  = 1, \forall i$
+\\$\Sigma X^{ij} = n$
+\section{Prime ideal}
+Consider a ring $R$ and an Ideal $I$ \\
+Consider $R/I$ is a domain. Then \\
+$ab = 0 \Rightarrow a = 0$ or $b = 0$ \\
+$\Rightarrow d = 0 \implies d \in I$
+$\Rightarrow ab \in I \Leftrightarrow a \in I$ or $b \in I$ \\
+Therefore $I$ is a prime ideal. \\
+Consider $F = R/I$ is a Field \\
+Then $\forall x \in F, \exists b, xb = bx = 1_F$ 
+\\ Consider ring $R$
+\\ Consider ideal $I$ in this ring
+\\ \textbb{$Claim$:$I$ is a principal Ideal}
+\\ \textbb{$Proof$:} Consider $g$ to be the smallest degree polynomial in $I$
+\\ Consider $f \in I$ but $f \not \in <g>$
+\\ $\implies f = qg+ r$, $degr < degg$
+\\ $\implies f-qg \in I \implies r \in I$
+\\ Contradiction. Hence $I$ is Principal ideal. \\
+Now since this ring contains only principal ideals, hence ideal $I$ is also principal. 
+Consider that there exists an ideal $J$ larger than $I$ and such that $I$ is contained in ideal $J$ but $J \neq (1).$ \\ 
+Since $J$ is also principal consider, an element $b \in J , b \not \in I$ \\
+then by consideration, $bx + i \neq 1_R, x \in R, i \in I$ \\
+hence there may not exist $x$ for $b$, $bx = xb = 1_F$ \\
+Therefore $F$ may not be a field, which is a contradiction. \\
+Therefore if $I$ is contained in $J$, then $J = (1)$ \\
+Therefore $I$ must be maximal.
+
+\medskip
+\printbibliography
+\end{document}
